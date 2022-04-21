@@ -16,6 +16,8 @@ const resetHandler = () => {
   player02Score.textContent = 0;
   player01Score.textContent = 0;
   player02Score.textContent = 0;
+  document.querySelector(`#name--0`).textContent = `PLAYER 1`;
+  document.querySelector(`#name--1`).textContent = `PLAYER 2`;
   scores = [0, 0];
 };
 
@@ -56,6 +58,8 @@ btnHold.addEventListener('click', () => {
     btnRoll.classList.add('hidden');
     btnHold.classList.add('hidden');
     document.querySelector(`#current--${playerActive}`).textContent = 0;
+    currentScore = 0;
+    document.querySelector(`#name--${playerActive}`).textContent = 'WINNER';
   } else {
     document.querySelector(`#score--${playerActive}`).textContent =
       scores[playerActive];
