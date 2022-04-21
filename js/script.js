@@ -16,9 +16,10 @@ const resetHandler = () => {
   player02Score.textContent = 0;
   player01Score.textContent = 0;
   player02Score.textContent = 0;
+  scores = [0, 0];
 };
 
-const scores = [0, 0];
+let scores = [0, 0];
 let playerActive = 0;
 let currentScore = 0;
 resetHandler();
@@ -45,13 +46,28 @@ btnRoll.addEventListener('click', () => {
 });
 btnHold.addEventListener('click', () => {
   scores[playerActive] += currentScore;
-  document.querySelector(`#score--${playerActive}`).textContent =
-    scores[playerActive];
-  diceImg.classList.add('hidden');
-  switchPlayerHandler();
+  if (scores[playerActive] > 30) {
+    document.querySelector(`#score--${playerActive}`).textContent =
+      scores[playerActive];
+    diceImg.classList.add('hidden');
+    document
+      .querySelector(`.player--${playerActive}`)
+      .classList.add('player--winner');
+    btnRoll.classList.add('hidden');
+    btnHold.classList.add('hidden');
+    document.querySelector(`#current--${playerActive}`).textContent = 0;
+  } else {
+    document.querySelector(`#score--${playerActive}`).textContent =
+      scores[playerActive];
+    diceImg.classList.add('hidden');
+    switchPlayerHandler();
+  }
 });
 btnNew.addEventListener('click', () => {
-  playerActive = 0;
-  currentScore = 0;
+  document
+    .querySelector(`.player--${playerActive}`)
+    .classList.remove('player--winner');
+  btnRoll.classList.remove('hidden');
+  btnHold.classList.remove('hidden');
   resetHandler();
 });
